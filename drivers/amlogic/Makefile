@@ -17,6 +17,9 @@ obj-$(CONFIG_POST_PROCESS_MANAGER) += ppmgr/
 
 obj-y += uart/
 
+#
+# kaiboer a3 nand chip is not the same as origion code base
+# we dont want to use nand chip so comment it out
 #obj-y += nand/
 
 obj-y += net/

@@ -30,6 +30,12 @@
 #define UART_STAT_MASK_TFIFO_FULL               (1<<21)
 #define UART_STAT_MASK_TFIFO_EMPTY              (1<<22)
 
+@
+@ addruart should use address that be mapped earlier in arch/arm/kernel/head.S __create_page_tables
+@
+@ the origion code uses =0xc81004c0. The address(virtual)  will be freed in arch/arm/mm/mmu.c prepare_page_table
+@
+@
 		.macro	addruart, rx, tmp
 		ldr	\rx, =AOBUS_REG_ADDR(AO_UART_WFIFO)		@ physical
 @		ldr	\rx, =0xc81004c0		@ physical

@@ -158,8 +158,11 @@ __secondary_data:
  * registers.
  */
 __enable_mmu:
-@ #ifdef CONFIG_ALIGNMENT_TRAP
-#if 0
+/*
+* new gcc will generate unaligned access for us. but arm will trap by such access.
+* arm v7a supports unaligned access so let arm don't trap by unaligned access
+*/
+#if defined(CONFIG_ALIGNMENT_TRAP) && (__LINUX_ARM_ARCH__<6)
 	orr	r0, r0, #CR_A
 #else
 	bic	r0, r0, #CR_A

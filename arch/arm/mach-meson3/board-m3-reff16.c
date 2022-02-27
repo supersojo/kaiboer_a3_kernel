@@ -1829,6 +1829,12 @@ static __init void m1_fixup(struct machine_desc *mach, struct tag *tag, char **c
 
 MACHINE_START(MESON3_8726M_SKT, "AMLOGIC MESON3 8726M SKT SH")
     .phys_io        = MESON_PERIPHS1_PHYS_BASE,
+    /*
+     * io_pg_offset is the io virtual address that is used by kernel, also the debug ll
+     * if it is the same as phys_io then once tlb is flushed then the io space will be freed by arch/arm/mm/mmu.c prepare_page_table
+     * so use virtual address here. prepare_page_table only clear page table below VMALLOC_END.
+     * In our case prepare_page_table will clear page table in range 0xc4000000 - 0xf0000000
+     */
     .io_pg_offst    = (MESON_PERIPHS1_VIRT_BASE >> 18) & 0xfffc,
     .boot_params    = BOOT_PARAMS_OFFSET,
     .map_io         = m1_map_io,
